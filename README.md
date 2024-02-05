@@ -13,7 +13,7 @@ You can use the next credentials:
 
 ### Login
 It has 2 buttons. The first one is for register: you have to create a new account with your email and create a new password; 
-the second one is for log in and naviigate to the home-movie view, but first you need write yours credentials (previously created);\
+the second one is for log in and navigate to the home-movie view, but first you need write yours credentials (previously created);\
 for both buttons you have to write a email and password, it could be anything but with at least 6 characters
 
 ### Home (Movies View)
@@ -49,12 +49,14 @@ Here the movie object is passed to the custom view and its own class is in charg
 - Navigation Component
 - ViewModel and SharedFlow
 - Glide
+- Shimmer
 - Github actions to build the apk on every release tag
 
 ## TODO
 - sigup with social medias
 - Handler internet errors
 - UnitTest
+- display error messages if something goes wrong
 
 ## Directory
 - ${rootProject}/.github/workflows/build.yml
