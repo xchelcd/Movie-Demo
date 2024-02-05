@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import com.idaxmx.moviedemo.R
 import com.idaxmx.moviedemo.data.model.Movie
@@ -31,6 +30,8 @@ class MovieDetails(
             setStarRate(field)
         }
 
+    private fun hasDecimals(num: Float): Boolean = (num - num.toInt()) != 0.toFloat()
+
     private fun setStarRate(movie: Movie?) {
         for (i in 0..4) {
             if (i < movie!!.voteAverage!!.toInt() / 2) {
@@ -38,7 +39,12 @@ class MovieDetails(
                     setBackgroundResource(R.drawable.ic_star_fill)
                 }
                 binding.starRateLayout.addView(starFilled)
-            } else {
+            } else if(hasDecimals(movie.voteAverage!!)) {
+                val starFilled = ImageView(context).apply {
+                    setBackgroundResource(R.drawable.ic_star_half)
+                }
+                binding.starRateLayout.addView(starFilled)
+            } else{
                 val starFilled = ImageView(context).apply {
                     setBackgroundResource(R.drawable.ic_star_border)
                 }
