@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.idaxmx.moviedemo.databinding.DialogRegisterBinding
+import com.idaxmx.moviedemo.domain.isValidEmail
 
 class RegisterDialog(
     private val auth: FirebaseAuth,
@@ -36,7 +37,17 @@ class RegisterDialog(
         binding.registerButton.setOnClickListener {
             val email: String = binding.emailEditText.text.toString()
             val password: String = binding.passwordEditText.text.toString()
+            var flag = false
             if (email.isNotBlank() && password.isNotBlank()) {
+                if (!email.isValidEmail()) {
+                    binding.emailEditText.error = "Invalid email"
+                    flag = true
+                }
+                if (password.length < 6) {
+                    binding.passwordEditText.error = "Password require at least 6 characters"
+                    flag = true
+                }
+                if (flag) return@setOnClickListener
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
