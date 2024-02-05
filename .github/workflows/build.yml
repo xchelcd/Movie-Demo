@@ -24,9 +24,3 @@ jobs:
         with:
           name: app-debug.apk
           path: 'app/build/outputs/apk/debug/app-debug.apk'
-
-      - name: Clean files
-        if: ${{ always() }}
-        run: |
-          rm ${{ github.workspace }}/keystore.properties
-          rm ${{ github.workspace }}/keystore_deploy
