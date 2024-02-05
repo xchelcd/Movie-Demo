@@ -21,8 +21,6 @@ class RegisterDialog(
     private var _binding: DialogRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private var wasAdded: Boolean = false
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogRegisterBinding.inflate(layoutInflater)
 
