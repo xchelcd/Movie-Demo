@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "27205496692",
+    "project_id": "movie-demo-mp",
+    "storage_bucket": "movie-demo-mp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27205496692:android:c43d85ac2330c56e874621",
+        "android_client_info": {
+          "package_name": "com.idaxmx.moviedemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-7XVGJS9LJ3JNGbbWO6UJ5oCJ9ypKH1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.login.LoginScreen">
+
+    <data>
+
+        <import type="com.idaxmx.moviedemo.util.binding.Callback" />
+
+        <import type="com.idaxmx.moviedemo.util.binding.CallbackWithTextAndError" />
+
+        <variable
+            name="handleLogin"
+            type="Callback" />
+
+        <variable
+            name="handleRegister"
+            type="Callback" />
+
+        <variable
+            name="handlePassword"
+            type="CallbackWithTextAndError" />
+
+        <variable
+            name="handleUsername"
+            type="CallbackWithTextAndError" />
+
+        <variable
+            name="state"
+            type="com.idaxmx.moviedemo.ui.login.LoginState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1C8DCC">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:src="@drawable/logotipo_macropay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/h_guideline_33">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                app:enable="@{!state.loading}"
+                app:onTextChangeWithError="@{handleUsername}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="@id/usernameTextView"
+            app:layout_constraintStart_toStartOf="@id/usernameTextView"
+            app:layout_constraintTop_toBottomOf="@id/usernameTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Password"
+                android:inputType="textPassword"
+                app:enable="@{!state.loading}"
+                app:onTextChangeWithError="@{handlePassword}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/loginButton"
+            onPress="@{handleLogin}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:text="Login"
+            app:enable="@{!state.loading}"
+            app:layout_constraintEnd_toEndOf="@id/usernameTextView"
+            app:layout_constraintStart_toStartOf="@id/usernameTextView"
+            app:layout_constraintTop_toBottomOf="@id/passwordTextView" />
+
+        <Button
+            android:id="@+id/signUpButton"
+            onPress="@{handleRegister}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:text="Sign up"
+            app:enable="@{!state.loading}"
+            app:layout_constraintEnd_toEndOf="@id/usernameTextView"
+            app:layout_constraintStart_toStartOf="@id/usernameTextView"
+            app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/h_guideline_33"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.33" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:show="@{state.loading}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

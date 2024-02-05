@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.movies.home.HomeScreen">
+
+    <data>
+
+        <import type="com.idaxmx.moviedemo.util.binding.CallbackWithMovie" />
+        <import type="com.idaxmx.moviedemo.util.binding.Callback" />
+
+        <variable
+            name="handleMovieSelected"
+            type="CallbackWithMovie" />
+
+        <variable
+            name="handleLogout"
+            type="Callback" />
+
+        <variable
+            name="state"
+            type="com.idaxmx.moviedemo.ui.movies.home.HomeState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:show="@{state.isLoading}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.idaxmx.moviedemo.ui.widget.ShimmerCellMovie
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.idaxmx.moviedemo.ui.widget.ShimmerCellMovie
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.idaxmx.moviedemo.ui.widget.ShimmerCellMovie
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.idaxmx.moviedemo.ui.widget.ShimmerCellMovie
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.idaxmx.moviedemo.ui.widget.ShimmerCellMovie
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.idaxmx.moviedemo.ui.widget.ShimmerCellMovie
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <com.idaxmx.moviedemo.ui.widget.ShimmerCellMovie
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <FrameLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Movies"
+                android:textColor="@color/black"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                onPress="@{handleLogout}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:padding="12dp"
+                android:src="@drawable/ic_login_24" />
+        </FrameLayout>
+
+        <com.idaxmx.moviedemo.ui.movies.MovieList
+            onMovieSelected="@{handleMovieSelected}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:data="@{state.list}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:show="@{!state.isLoading}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
