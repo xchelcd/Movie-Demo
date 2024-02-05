@@ -29,7 +29,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
+            buildConfigField("String", "MOVIE_ROOT_URL", project.property("ROOT_URL") as String)
+            buildConfigField(
+                "String",
+                "MOVIE_IMAGE_ROOT_URL",
+                project.property("IMAGE_URL") as String
+            )
+            buildConfigField("String", "TOKEN", project.property("TOKEN") as String)
+            buildConfigField("String", "API_KEY", project.property("API_KEY") as String)
         }
         debug {
             isMinifyEnabled = false
