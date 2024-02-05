@@ -1,0 +1,32 @@
+name: App build (for test)
+
+on:
+  push:
+    branches: ["ci"]
+jobs:
+  package:
+    name: Generate APK for test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug.apk
+          path: 'app/build/outputs/apk/debug/app-debug.apk'
+
+      - name: Clean files
+        if: ${{ always() }}
+        run: |
+          rm ${{ github.workspace }}/keystore.properties
+          rm ${{ github.workspace }}/keystore_deploy
