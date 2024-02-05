@@ -46,7 +46,12 @@ class HomeScreen : Fragment() {
             lifecycleOwner = this@HomeScreen
             setHandleMovieSelected(::goToDetails)
             setHandleLogout(::handleLogout)
+            setHandleEndScroll(::handleEndScroll)
         }
+    }
+
+    private fun handleEndScroll() {
+        viewModel.loadMoreData()
     }
 
     private fun handleLogout() {

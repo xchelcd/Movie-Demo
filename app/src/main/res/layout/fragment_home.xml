@@ -16,6 +16,9 @@
         <variable
             name="handleLogout"
             type="Callback" />
+        <variable
+            name="handleEndScroll"
+            type="Callback" />
 
         <variable
             name="state"
@@ -104,6 +107,7 @@
             onMovieSelected="@{handleMovieSelected}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            onEndScroll="@{handleEndScroll}"
             app:data="@{state.list}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

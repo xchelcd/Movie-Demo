@@ -7,7 +7,7 @@ class MovieRepositoryImp @Inject constructor(
     private val service: MovieService
 ): MovieRepository {
 
-    override suspend fun getMovies() = service.getMovies()
+    override suspend fun getMovies(page: Int) = service.getMovies(page)
 
     override suspend fun getMovieById(id: Long) = service.getMovieById(id)
 }

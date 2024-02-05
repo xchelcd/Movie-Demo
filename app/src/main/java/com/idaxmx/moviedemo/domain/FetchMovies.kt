@@ -11,8 +11,8 @@ class FetchMovies @Inject constructor(
     private val repository: MovieRepository
 ) {
 
-    suspend operator fun invoke(): WrapperResponse<List<Movie>> {
-        return when (val moviesRes: Resource = repository.getMovies()) {
+    suspend operator fun invoke(page: Int): WrapperResponse<Pair<Set<Movie>, Int>> {
+        return when (val moviesRes: Resource = repository.getMovies(page)) {
             is Resource.Error -> {
                 WrapperResponse(
                     result = null,
@@ -23,9 +23,9 @@ class FetchMovies @Inject constructor(
             is Resource.Successful<*> -> {
                 val objectResponse = moviesRes.data as NowPlayingResponse
                 val page = objectResponse.page
-                val movies = moviesRes.data.results ?: emptyList()
+                val movies = moviesRes.data.results ?: emptySet()
                 WrapperResponse(
-                    result = movies,
+                    result = Pair(movies, page ?: 1),
                     error = null
                 )
             }

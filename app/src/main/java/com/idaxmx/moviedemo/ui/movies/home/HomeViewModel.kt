@@ -1,15 +1,12 @@
 package com.idaxmx.moviedemo.ui.movies.home
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.idaxmx.moviedemo.data.model.Movie
-import com.idaxmx.moviedemo.data.model.NowPlayingResponse
 import com.idaxmx.moviedemo.domain.FetchMovies
 import com.idaxmx.moviedemo.util.Const
-import com.idaxmx.moviedemo.util.network_response.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,13 +26,14 @@ class HomeViewModel @Inject constructor(
         fetchListMovieList()
     }
 
+    private var page = 1
     private fun fetchListMovieList() = viewModelScope.launch {
         try {
             setIsLoading(true)
-
-            val movieListRes = fetchMovies()
+            val movieListRes = fetchMovies(page)
             if (movieListRes.error == null) {
-                setMovieList(movieListRes.result!!)
+                setMovieList(movieListRes.result?.first!!)
+                page = movieListRes.result.second
             } else {
                 val error = movieListRes.error
             }
@@ -44,7 +42,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun setMovieList(list: List<Movie>) {
+    private fun setMovieList(list: Set<Movie>) {
         _state.update { it.updateMovieList(list) }
     }
 
@@ -57,5 +55,15 @@ class HomeViewModel @Inject constructor(
         val editor = preferences.edit()
         editor.putBoolean(Const.USER_LOGGED_KEY, false)
         editor.apply()
+    }
+
+    fun loadMoreData() = viewModelScope.launch {
+        val movieListRes = fetchMovies(page + 1)
+        if (movieListRes.error == null) {
+            setMovieList(movieListRes.result?.first!!)
+            page = movieListRes.result.second
+        } else {
+            val error = movieListRes.error
+        }
     }
 }

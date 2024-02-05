@@ -19,4 +19,8 @@ data class Movie(
 ) {
     val getGenres: String get() = genres?.joinToString { it.name } ?: "-"
     val duration: String get() = "$_runtime min"
+
+    override fun hashCode(): Int {
+        return id?.hashCode() ?: 0
+    }
 }

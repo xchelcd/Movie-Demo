@@ -2,7 +2,6 @@ name: App build (for test)
 
 on:
   push:
-    branches: ["ci", "main"]
     tag:
       - release-**
 jobs:

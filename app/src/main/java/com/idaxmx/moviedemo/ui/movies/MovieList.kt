@@ -19,10 +19,42 @@ class MovieList(
             // adapter?.notifyItemRangeChanged(0, value.size)
             adapter?.notifyDataSetChanged()
         }
+    private var previousTotal = 0
+    private var loading = true
+    private var visibleThreshold = 5
+    var firstVisibleItem = 0
+    var visibleItemCount: Int = 0
+    var totalItemCount: Int = 0
+
+    var onEndScroll: (() -> Unit)? = null
 
     init {
         this.adapter = Adapter()
         this.layoutManager = LinearLayoutManager(context)
+        addOnScrollListener(object : OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                visibleItemCount = this@MovieList.childCount;
+                totalItemCount = (this@MovieList.layoutManager as LinearLayoutManager).itemCount
+                firstVisibleItem =
+                    (this@MovieList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition();
+
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false
+                        previousTotal = totalItemCount
+                    }
+                }
+                if (!loading && (totalItemCount - visibleItemCount)
+                    <= (firstVisibleItem + visibleThreshold)
+                ) {
+                    onEndScroll?.let {
+                        it()
+                    }
+                    loading = true
+                }
+            }
+        })
     }
 
 
@@ -52,6 +84,7 @@ class MovieList(
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
             data[position].also(holder::bind)
         }
 

@@ -124,3 +124,9 @@ fun onMovieSelected(recyclerView: MovieList, callbackWithMovie: CallbackWithMovi
         callbackWithMovie?.invoke(movie)
     }
 }
+@BindingAdapter("onEndScroll")
+fun onEndScroll(recyclerView: MovieList, callbackEndScroll: Callback?) {
+    recyclerView.onEndScroll = {
+        callbackEndScroll?.invoke()
+    }
+}
