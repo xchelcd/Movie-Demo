@@ -16,9 +16,18 @@
         <variable
             name="handleLogout"
             type="Callback" />
+
         <variable
             name="handleEndScroll"
             type="Callback" />
+
+        <variable
+            name="handleSearchMovie"
+            type="Callback" />
+
+        <variable
+            name="handleTitle"
+            type="com.idaxmx.moviedemo.util.binding.CallbackWithText" />
 
         <variable
             name="state"
@@ -37,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/searchLayout"
             app:show="@{state.isLoading}">
 
             <LinearLayout
@@ -103,7 +112,55 @@
                 android:src="@drawable/ic_login_24" />
         </FrameLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <EditText
+                android:id="@+id/searchEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:hint="Search by title"
+                android:paddingHorizontal="12dp"
+                app:layout_constraintBottom_toTopOf="@id/notFoundTextView"
+                app:layout_constraintEnd_toStartOf="@id/searchButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:onTextChange="@{handleTitle}" />
+
+            <Button
+                android:id="@+id/searchButton"
+                onPress="@{handleSearchMovie}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                app:layout_constraintBottom_toBottomOf="@id/searchEditText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/searchEditText"
+                app:layout_constraintTop_toTopOf="@id/searchEditText" />
+
+            <TextView
+                android:id="@+id/notFoundTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Not movie found"
+                app:show="@{state.isSearchAMovie}"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/searchEditText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.idaxmx.moviedemo.ui.movies.MovieList
+            android:id="@+id/movieList"
             onMovieSelected="@{handleMovieSelected}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -112,7 +169,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/searchLayout"
             app:show="@{!state.isLoading}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,4 +48,20 @@ class MovieService @Inject constructor(
         }
     }
 
+    suspend fun getMovieByTitle(title: String): Resource = withContext(IO) {
+        val movieResponse = api.getMovieByTitle(title)
+
+        if (movieResponse.isSuccessful) {
+            Resource.Successful(movieResponse.body())
+        } else {
+            Resource.Error(
+                Error(
+                    errorMessage = "",
+                    statusCode = movieResponse.code(),
+                    details = ""
+                )
+            )
+        }
+    }
+
 }

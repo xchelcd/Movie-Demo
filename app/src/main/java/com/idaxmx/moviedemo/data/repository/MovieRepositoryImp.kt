@@ -10,4 +10,6 @@ class MovieRepositoryImp @Inject constructor(
     override suspend fun getMovies(page: Int) = service.getMovies(page)
 
     override suspend fun getMovieById(id: Long) = service.getMovieById(id)
+
+    override suspend fun getMovieByTitle(title: String) = service.getMovieByTitle(title)
 }

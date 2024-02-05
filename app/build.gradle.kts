@@ -121,8 +121,6 @@ dependencies {
     val nav_version = "2.5.1"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-    // Data Store
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
     //Load image from server
     implementation("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")

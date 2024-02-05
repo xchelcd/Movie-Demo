@@ -1,7 +1,7 @@
 package com.idaxmx.moviedemo.domain
 
+import com.idaxmx.moviedemo.data.model.GenericMovieResponse
 import com.idaxmx.moviedemo.data.model.Movie
-import com.idaxmx.moviedemo.data.model.NowPlayingResponse
 import com.idaxmx.moviedemo.data.repository.MovieRepository
 import com.idaxmx.moviedemo.util.network_response.Resource
 import com.idaxmx.moviedemo.util.network_response.WrapperResponse
@@ -21,7 +21,7 @@ class FetchMovies @Inject constructor(
             }
 
             is Resource.Successful<*> -> {
-                val objectResponse = moviesRes.data as NowPlayingResponse
+                val objectResponse = moviesRes.data as GenericMovieResponse
                 val page = objectResponse.page
                 val movies = moviesRes.data.results ?: emptySet()
                 WrapperResponse(

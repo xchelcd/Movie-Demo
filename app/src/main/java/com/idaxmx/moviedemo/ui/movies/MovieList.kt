@@ -2,6 +2,7 @@ package com.idaxmx.moviedemo.ui.movies
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,20 +39,23 @@ class MovieList(
                 totalItemCount = (this@MovieList.layoutManager as LinearLayoutManager).itemCount
                 firstVisibleItem =
                     (this@MovieList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition();
-
                 if (loading) {
                     if (totalItemCount > previousTotal) {
                         loading = false
                         previousTotal = totalItemCount
                     }
                 }
+                Log.d("MovieList", "1-loading:$loading - visibleItemCount:$visibleItemCount - totalItemCount:$totalItemCount - firstVisibleItem:$firstVisibleItem - (totalItemCount-visibleItemCount)${(totalItemCount - visibleItemCount)} - (firstVisibleItem + visibleThreshold):${(firstVisibleItem + visibleThreshold)} - previousTotal:$previousTotal")
                 if (!loading && (totalItemCount - visibleItemCount)
                     <= (firstVisibleItem + visibleThreshold)
                 ) {
+                    Log.d("MovieList", "*-loading:$loading - visibleItemCount:$visibleItemCount - totalItemCount:$totalItemCount - firstVisibleItem:$firstVisibleItem - (totalItemCount-visibleItemCount)${(totalItemCount - visibleItemCount)} - (firstVisibleItem + visibleThreshold):${(firstVisibleItem + visibleThreshold)} - previousTotal:$previousTotal")
                     onEndScroll?.let {
                         it()
                     }
                     loading = true
+                } else {
+                    Log.d("MovieList", "--loading:$loading - visibleItemCount:$visibleItemCount - totalItemCount:$totalItemCount - firstVisibleItem:$firstVisibleItem - (totalItemCount-visibleItemCount)${(totalItemCount - visibleItemCount)} - (firstVisibleItem + visibleThreshold):${(firstVisibleItem + visibleThreshold)} - previousTotal:$previousTotal")
                 }
             }
         })

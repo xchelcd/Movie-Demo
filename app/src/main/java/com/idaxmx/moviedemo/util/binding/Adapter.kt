@@ -3,7 +3,9 @@ package com.idaxmx.moviedemo.util.binding
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -91,8 +93,8 @@ fun onPress(v: View, callback: Callback?) {
     v.setOnClickListener { callback?.invoke() }
 }
 
-@BindingAdapter("app:onTextChangeWithError")
-fun onTextChange(editText: TextInputEditText, callback: CallbackWithTextAndError?) {
+@BindingAdapter("onTextChangeWithError")
+fun onTextChangeWithError(editText: TextInputEditText, callback: CallbackWithTextAndError?) {
     val str = editText.text ?: ""
     if (str.isBlank()) editText.error =
         "The field '${editText.hint.toString().lowercase()}' cannot be empty"
@@ -115,6 +117,12 @@ fun onTextChange(editText: TextInputEditText, callback: CallbackWithTextAndError
             callback?.invoke(p0.toString())
         }
     })
+}
+@BindingAdapter("onTextChange")
+fun onTextChange(editText: EditText, callback: CallbackWithText?) {
+    editText.doOnTextChanged { text, _, _, _ ->
+        callback?.invoke(text.toString())
+    }
 }
 
 @BindingAdapter("onMovieSelected")

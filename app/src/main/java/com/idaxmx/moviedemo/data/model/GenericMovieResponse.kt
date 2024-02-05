@@ -2,7 +2,7 @@ package com.idaxmx.moviedemo.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class NowPlayingResponse (
+data class GenericMovieResponse (
     val dates: MovieDates?,
     val page: Int?,
     val results: Set<Movie>?,
@@ -11,10 +11,4 @@ data class NowPlayingResponse (
     val statusCode: Int?,
     val statusMessage: String?,
     val success: Boolean?,
-)
-
-open class GenericResponse (
-    open val statusCode: Int?,
-    open val statusMessage: String?,
-    open val success: Boolean?,
 )

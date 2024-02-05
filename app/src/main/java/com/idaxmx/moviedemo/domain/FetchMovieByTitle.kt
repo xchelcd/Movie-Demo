@@ -1,17 +1,18 @@
 package com.idaxmx.moviedemo.domain
 
+import com.idaxmx.moviedemo.data.model.GenericMovieResponse
 import com.idaxmx.moviedemo.data.model.Movie
-import com.idaxmx.moviedemo.data.repository.MovieRepository
+import com.idaxmx.moviedemo.data.repository.MovieRepositoryImp
 import com.idaxmx.moviedemo.util.network_response.Resource
 import com.idaxmx.moviedemo.util.network_response.WrapperResponse
 import javax.inject.Inject
 
-class FetchMovieById @Inject constructor(
-    private val repository: MovieRepository
+class FetchMovieByTitle @Inject constructor(
+    private val repository: MovieRepositoryImp
 ) {
 
-    suspend operator fun invoke(id: Long): WrapperResponse<Movie?> {
-        return when (val moviesRes: Resource = repository.getMovieById(id)) {
+    suspend operator fun invoke(title: String): WrapperResponse<Set<Movie>> {
+        return when (val moviesRes: Resource = repository.getMovieByTitle(title)) {
             is Resource.Error -> {
                 WrapperResponse(
                     result = null,
@@ -20,9 +21,9 @@ class FetchMovieById @Inject constructor(
             }
 
             is Resource.Successful<*> -> {
-                val objectResponse: Movie? = moviesRes.data as? Movie
+                val movies = (moviesRes.data as GenericMovieResponse).results ?: emptySet()
                 WrapperResponse(
-                    result = objectResponse,
+                    result = movies,
                     error = null
                 )
             }

@@ -6,4 +6,5 @@ interface MovieRepository {
 
     suspend fun getMovies(page: Int): Resource
     suspend fun getMovieById(id: Long): Resource
+    suspend fun getMovieByTitle(title: String): Resource
 }

@@ -47,6 +47,8 @@ class HomeScreen : Fragment() {
             setHandleMovieSelected(::goToDetails)
             setHandleLogout(::handleLogout)
             setHandleEndScroll(::handleEndScroll)
+            setHandleTitle(viewModel::setTitleToSearch)
+            setHandleSearchMovie(viewModel::searchMovie)
         }
     }
 
