@@ -2,7 +2,9 @@ name: App build (for test)
 
 on:
   push:
-    branches: ["ci", "main"]
+    branches: ["ci"]
+    tag:
+      - release-**
 jobs:
   package:
     name: Generate APK for test
