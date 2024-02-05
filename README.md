@@ -9,6 +9,10 @@ You can use the next credentials:
 - email: macropay123@gmail.com
 - pass: mp1234
 
+## For download apk signed
+You can download the apk in the __Actions__ tab showed in the below image
+<img title="Downlaod apk from github actions" src="/screenshot/where-download-apk-from-github-actions.png">
+
 ## UI
 
 ### Login
