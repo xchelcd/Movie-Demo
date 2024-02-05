@@ -22,6 +22,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("/key_store.jks")
+            storePassword = ""
+            keyAlias = ""
+            keyPassword = ""
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -37,6 +46,7 @@ android {
             )
             buildConfigField("String", "TOKEN", project.property("TOKEN") as String)
             buildConfigField("String", "API_KEY", project.property("API_KEY") as String)
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             isMinifyEnabled = false
