@@ -4,6 +4,9 @@ If you want to clone/fork the project you will need to set in the gradle.propert
 also add in the app:gradle the signingConfigs to build the apk signed\
 For **Macropay**, you gave me the TOKEN and the API_KEY so I used it
 
+##Update
+* Added search bar, you need to clear it and click seach to fetch all movies again (fetch the movies on page 1), however it has a bug: if you search a movie and clear the searchbar the endless scroll stop working
+
 ## Credentials
 You can use the next credentials:
 - email: macropay123@gmail.com
